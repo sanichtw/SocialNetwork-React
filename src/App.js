@@ -6,7 +6,6 @@ import Nav from './components/nav/nav';
 import Profile from './components/profile/profile';
 
 const App = (props) => {
-  // debugger;
   return (
     <div className={s.app}>
       <Header />

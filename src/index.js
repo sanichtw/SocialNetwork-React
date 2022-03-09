@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import store from './redux/store';
+import store from './redux/redux-store';
 // import { subscribe } from './store/store';
 
 
 
 const rerenderDOMTree = (state) => {
+    debugger;
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
@@ -22,4 +23,4 @@ const rerenderDOMTree = (state) => {
 
 rerenderDOMTree(store.getState());
 
-store.subscribe(rerenderDOMTree)
+store.subscribe(() => rerenderDOMTree(store.getState()))
