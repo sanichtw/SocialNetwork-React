@@ -1,0 +1,54 @@
+.navPage {
+    grid-area: n;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 1 50%;
+    color: black;
+    border-radius: 30px;
+    max-height: 460px;
+    padding: 20px 5px 20px 5px;
+    background-color: whitesmoke;
+    
+}
+.navList {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px 80px 0px;
+}
+
+.navList a {
+    text-decoration: none;
+    padding: 3px;
+}
+
+.friendsList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friendsItem {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.friendsItem div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friendsItem div:not(:nth-child(3)) {
+    margin: 0px 5px 0px 0px;
+}
+
+.active {
+    color:coral;
+}
+
+.item {
+    color: black;
+}

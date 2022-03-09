@@ -1,0 +1,17 @@
+.header {
+    grid-area: h;
+    display: flex;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 30px;
+    align-items: center;
+}
+
+.header img {
+    max-width: 40px;
+    margin: 30px;
+}
+
+.header h1 {
+    font-family: 'Lilita One', cursive;
+}

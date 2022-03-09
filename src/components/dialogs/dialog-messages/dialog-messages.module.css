@@ -1,0 +1,12 @@
+.messages {
+    display: flex;
+    align-self: flex-start;
+    border-radius: 30px;
+    box-shadow: 0 0px 10px 0 rgba(0,0,0,0.1);
+    background-color: whitesmoke;
+    padding: 5px 15px 5px 15px;
+}
+
+.messages:nth-child(2n) {
+    align-self: flex-end;
+}

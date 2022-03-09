@@ -1,0 +1,22 @@
+.person {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0px 10px 0 rgba(0,0,0,0.1);
+    border-radius: 30px;
+    margin: 5px 0px 5px 0px;
+};
+
+.avatarImg {
+    max-width: 40px;
+}
+
+img {
+    width: 40px;
+    height: 40px;
+}
+
+.personName {
+    margin-left: 20px;
+}

@@ -1,0 +1,10 @@
+.postItem {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 5px 10px 0px;
+}
+
+.postItem img {
+    max-width: 50px;
+    padding: 0px 0px 10px 0px;
+}
