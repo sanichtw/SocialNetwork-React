@@ -4,8 +4,7 @@ import s from './posts.module.css';
 // import { addNewPostActionCreater, updateNewPostActionCreater } from '../../../redux/state'
 
 const Posts = (props) => {
-    let { postsData, newPostText } = props.profileData;
-
+    let state = props.profileData;
     const onChange = (e) => {
         let text = e.target.value;
         props.updateNewPostText(text);
@@ -21,11 +20,11 @@ const Posts = (props) => {
                 <h3>
                     My Posts
                 </h3>
-                <textarea onChange={onChange} value={newPostText}></textarea>
+                <textarea onChange={onChange} value={state.newPostText}></textarea>
                 <div>
                     <button onClick={onAddPost}>Add Post</button>
                 </div>
-                <PostItem postsData={postsData} />
+                <PostItem postsData={state.postsData} />
             </div>
         </div >
     )

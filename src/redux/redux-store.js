@@ -6,7 +6,7 @@ import navReducer from "./reducers/nav-reducer";
 
 const rootReducers = combineReducers({
     profilePage: profileReducer,
-    dialogPage: dialogsReducer,
+    dialogsPage: dialogsReducer,
     navPage: navReducer
 })
 
