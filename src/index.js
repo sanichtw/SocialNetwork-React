@@ -4,25 +4,23 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import store from './redux/redux-store';
-import StoreContext from './redux/reducers/storeContext';
-// import { subscribe } from './store/store';
+import StoreContext from './redux/storeContext';
 
 
 
-const rerenderDOMTree = (state) => {
+const rerenderDOMTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                {/* <StoreContext value={store} /> */}
-                <App state={state}
-                    dispatch={store.dispatch.bind(store)}
-                    store={store} />
+                <StoreContext.Provider value={store} >
+                    <App />
+                </StoreContext.Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 };
 
-rerenderDOMTree(store.getState());
+rerenderDOMTree();
 
-store.subscribe(() => rerenderDOMTree(store.getState()))
+store.subscribe(() => rerenderDOMTree())

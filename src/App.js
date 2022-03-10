@@ -6,16 +6,15 @@ import Header from './components/header/header';
 import Nav from './components/nav/nav';
 import Profile from './components/profile/profile';
 
-const App = (props) => {
+const App = () => {
   return (
     <div className={s.app}>
       <Header />
-      <Nav navData={props.state.navPage} />
+      <Nav />
       <div className={s.app_wrapper_container}>
         <Routes>
-          <Route path="/profile" element={<Profile store={props.store}
-          />} />
-          <Route path="/dialog" element={<DialogsContainer store={props.store} />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/dialog" element={<DialogsContainer />} />
           <Route path="/news" element={<Dialogs />} />
           <Route path="/music" element={<Dialogs />} />
           <Route path="/settings" element={<Dialogs />} />
