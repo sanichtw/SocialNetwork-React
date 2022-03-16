@@ -3,14 +3,14 @@ import s from './app.module.css';
 import Dialogs from './components/dialogs/dialogs';
 import DialogsContainer from './components/dialogs/dialogs-container';
 import Header from './components/header/header';
-import Nav from './components/nav/nav';
+import NavContainer from './components/nav/nav-container';
 import Profile from './components/profile/profile';
 
 const App = () => {
   return (
     <div className={s.app}>
       <Header />
-      <Nav />
+      <NavContainer />
       <div className={s.app_wrapper_container}>
         <Routes>
           <Route path="/profile" element={<Profile />} />
