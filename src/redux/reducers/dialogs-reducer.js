@@ -8,29 +8,34 @@ let initialState = {
             { id: 3, name: 'Dima', avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiNywSRTED7qhaL7cwWVHKczIMFTWHzpxN0A&usqp=CAU" },
         ],
     msgsData: [
-        { text: 'Hi' },
-        { text: 'How are you?' },
-        { text: 'How your react?' },
+        { id: 1, text: 'Hi' },
+        { id: 2, text: 'How are you?' },
+        { id: 3, text: 'How your react?' },
     ],
     newMessageText: ''
 }
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SEND_NEW_MESSAGE:
+        case SEND_NEW_MESSAGE: {
             if (state.newMessageText) {
                 let newPost = {
                     id: 5,
                     text: state.newMessageText,
-                    likesCount: 0
                 };
-                state.msgsData.push(newPost);
-                state.newMessageText = '';
-                return state;
+                return {
+                    ...state,
+                    msgsData: [...state.msgsData, newPost],
+                    newMessageText: ''
+                }
             };
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newMessage;
-            return state;
+        };
+        case UPDATE_NEW_MESSAGE_TEXT: {
+            return {
+                ...state,
+                newMessageText: action.newMessage
+            }
+        }
         default: return state;
     }
 }

@@ -6,7 +6,7 @@ const Nav = (props) => {
 
     let friends = friendsData.map(fr => {
         return (
-            <div>
+            <div key={fr.id}>
                 <img src={fr.avatar}></img>
                 <div>{fr.name}</div>
             </div>

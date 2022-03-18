@@ -7,12 +7,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = () => {
-    return {
 
-    }
-}
-
-const NavContainer = connect(mapStateToProps, mapDispatchToProps)(Nav)
+const NavContainer = connect(mapStateToProps)(Nav)
 
 export default NavContainer;

@@ -1,4 +1,3 @@
-import { sendNewMessageActionCreator, updateNewMessageActionCreator } from '../../redux/actions/actions';
 import DialogMessage from './dialog-messages/dialog-messages';
 import DialogPerson from './dialog-persons/dialog-persons';
 import s from './dialogs.module.css';
@@ -7,9 +6,9 @@ const Dialogs = (props) => {
     let state = props.dialogsData;
 
     let messages = state.msgsData
-        .map(message => <DialogMessage text={message.text} />);
+        .map(message => <DialogMessage text={message.text} key={message.id} />);
     let names = state.namesData
-        .map(name => <DialogPerson name={name.name} id={name.id} avatar={name.avatar} />);
+        .map(name => <DialogPerson name={name.name} id={name.id} key={name.id} avatar={name.avatar} />);
 
     const onSendMessage = () => {
         props.sendMessage()
