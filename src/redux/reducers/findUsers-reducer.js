@@ -1,11 +1,10 @@
-import { FOLLOW, SET_USERS, UNFOLLOW } from "../types/types";
+import { FOLLOW, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT, SET_USERS } from "../types/types";
 
 let initialState = {
-    users: [
-        { id: 1, isFollow: false, fullName: 'Nikita', status: 'Learning React', location: { city: 'Minsk', country: 'Belarus' } },
-        { id: 2, isFollow: false, fullName: 'Egor', status: 'Learning Java', location: { city: 'Krakow', country: 'Poland' } },
-        { id: 3, isFollow: false, fullName: 'Dmitriy', status: 'Learning DevOps', location: { city: 'Minsk', country: 'Belarus' } },
-    ]
+    users: [],
+    currentPage: 1,
+    totalUsersCount: 0,
+    pagesCount: 5
 }
 
 const findUsersReducer = (state = initialState, action) => {
@@ -15,7 +14,7 @@ const findUsersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(user => {
                     if (user.id === action.userId) {
-                        return { ...user, isFollow: !user.isFollow }
+                        return { ...user, followed: !user.followed }
                     }
                     return user
                 }
@@ -25,7 +24,19 @@ const findUsersReducer = (state = initialState, action) => {
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
+            }
+
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+
+        case SET_TOTAL_USERS_COUNT: 
+            return {
+                ...state,
+                totalUsersCount: action.count
             }
         default:
             return state
