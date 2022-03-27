@@ -1,10 +1,11 @@
-import { FOLLOW, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT, SET_USERS } from "../types/types";
+import { FOLLOW, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT, SET_USERS, TOGGLE_IS_FETCHING } from "../types/types";
 
 let initialState = {
     users: [],
     currentPage: 1,
     totalUsersCount: 0,
-    pagesCount: 5
+    pageSize: 5,
+    isFetching: false
 }
 
 const findUsersReducer = (state = initialState, action) => {
@@ -37,6 +38,12 @@ const findUsersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 totalUsersCount: action.count
+            }
+
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: !state.isFetching
             }
         default:
             return state
