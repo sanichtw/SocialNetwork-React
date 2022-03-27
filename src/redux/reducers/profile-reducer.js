@@ -1,11 +1,12 @@
-import { ADD_POST, UPDATE_NEW_POST_TEXT } from "../types/types";
+import { ADD_POST, SET_PROFILE, UPDATE_NEW_POST_TEXT } from "../types/types";
 
 let initialState = {
     postsData: [
         { id: 1, text: 'Hi', likesCount: 1 },
         { id: 2, text: 'You are awesome!', likesCount: 222 },
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -28,6 +29,13 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 newPostText: action.newText
+            }
+        }
+
+        case SET_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
             }
         }
         default: return state;

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { toggleFollowAC, setUsersAC, setCurrentPageAC, setTotalUsersCountAC, toggleIsFetching, toggleIsFetchingAC } from "../../redux/actions/actions";
+import { toggleFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching } from "../../redux/actions/actions";
 import * as axios from 'axios';
 import { Component } from 'react';
 import Users from './Users';
@@ -38,7 +38,7 @@ class FindUsersContainer extends Component {
                         pageSize={this.props.pageSize}
                         onPageChanged={this.onPageChanged}
                         users={this.props.users}
-                        follow={this.props.follow}
+                        follow={this.props.toggleFollow}
                     />}
 
             </>
@@ -57,24 +57,26 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(toggleFollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (count) => {
-            dispatch(setTotalUsersCountAC(count))
-        },
-        toggleIsFetching: () => {
-            dispatch(toggleIsFetchingAC())
-        }
-    }
-};
+// let mapDispatchToProps = (dispatch) => {
+//     return {
+//         toggleFollow: (userId) => {
+//             dispatch(toggleFollowAC(userId))
+//         },
+//         setUsers: (users) => {
+//             dispatch(setUsersAC(users))
+//         },
+//         setCurrentPage: (pageNumber) => {
+//             dispatch(setCurrentPageAC(pageNumber))
+//         },
+//         setTotalUsersCount: (count) => {
+//             dispatch(setTotalUsersCountAC(count))
+//         },
+//         toggleIsFetching: () => {
+//             dispatch(toggleIsFetchingAC())
+//         }
+//     }
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FindUsersContainer)
+export default connect(mapStateToProps, {
+    toggleFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching
+})(FindUsersContainer)

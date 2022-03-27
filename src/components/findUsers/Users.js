@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import style from './findUsers.module.css';
 
 
@@ -26,7 +27,9 @@ const Users = (props) => {
             (
                 <div key={user.id} className={style.user}>
                     <div className={style.user_photo}>
-                        <div>img</div>
+                        <NavLink to={`/profile/${user.id}`}>
+                            <div><img src={user.photos.small} /></div>
+                        </NavLink>
                         <button onClick={() => props.follow(user.id)}>{user.followed ? 'Follow' : 'unFollow'}</button>
                     </div>
 

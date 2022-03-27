@@ -1,8 +1,8 @@
 import s from './avatar.module.css';
-const ProfileAvatar = () => {
+const ProfileAvatar = (props) => {
     return (
         <div>
-            <img className={s.ava} src="https://publicdomainvectors.org/tn_img/Male-Avatar-2.webp"></img>
+            <img className={s.ava} src={props.photo}></img>
         </div>
     )
 };

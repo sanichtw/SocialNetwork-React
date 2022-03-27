@@ -5,10 +5,10 @@ import s from './profile.module.css'
 const Profile = (props) => {
     return (
         <div className={s.profile}>
-            <Description />
+            <Description profile={props.profile}/>
             <PostContainer />
         </div>
     )
-};
+}
 
 export default Profile;
