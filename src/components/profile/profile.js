@@ -5,7 +5,7 @@ import s from './profile.module.css'
 const Profile = (props) => {
     return (
         <div className={s.profile}>
-            <Description profile={props.profile}/>
+            <Description profile={props.profile} />
             <PostContainer />
         </div>
     )

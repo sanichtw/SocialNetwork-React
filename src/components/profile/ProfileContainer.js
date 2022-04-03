@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { setProfile } from '../../redux/actions/actions';
 import Profile from './Profile';
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
@@ -12,7 +12,7 @@ const withRouter = WrappedComponent => props => {
         <WrappedComponent
             {...props}
             params={params}
-            // etc...
+        // etc...
         />
     );
 };
@@ -20,7 +20,6 @@ const withRouter = WrappedComponent => props => {
 
 class ProfileContainer extends Component {
     componentDidMount() {
-        debugger
         let userId = this.props.params.userId;
         if (!userId) {
             userId = 2;

@@ -1,16 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import s from './app.module.css';
-import Dialogs from './components/dialogs/dialogs';
 import DialogsContainer from './components/dialogs/dialogs-container';
 import FindUsersContainer from './components/findUsers/findUsersContainer';
 import Header from './components/header/header';
+import HeaderContainer from './components/header/header-container';
 import NavContainer from './components/nav/nav-container';
 import ProfileContainer from './components/profile/ProfileContainer';
 
 const App = () => {
   return (
     <div className={s.app}>
-      <Header />
+      <HeaderContainer />
       <NavContainer />
       <div className={s.app_wrapper_container}>
         <Routes>
