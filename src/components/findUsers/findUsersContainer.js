@@ -1,20 +1,20 @@
 import { connect } from "react-redux";
 import { toggleFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching } from "../../redux/actions/actions";
-import * as axios from 'axios';
 import { Component } from 'react';
 import Users from './Users';
 import Preloader from "../common/preloader/Preloader";
+import { usersAPI } from "../../api/api";
 
 
 class FindUsersContainer extends Component {
     componentDidMount() {
         if (this.props.users.length === 0) {
             this.props.toggleIsFetching()
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-                .then(response => {
+            usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+                .then(data => {
                     this.props.toggleIsFetching()
-                    this.props.setUsers(response.data.items);
-                    this.props.setTotalUsersCount(response.data.totalCount);
+                    this.props.setUsers(data.items);
+                    this.props.setTotalUsersCount(data.totalCount);
                 })
         };
     };
@@ -22,10 +22,10 @@ class FindUsersContainer extends Component {
     onPageChanged = (pageNumber) => {
         this.props.toggleIsFetching()
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching()
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     };
 
@@ -38,7 +38,7 @@ class FindUsersContainer extends Component {
                         pageSize={this.props.pageSize}
                         onPageChanged={this.onPageChanged}
                         users={this.props.users}
-                        follow={this.props.toggleFollow}
+                        toggleFollow={this.props.toggleFollow}
                     />}
 
             </>

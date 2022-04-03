@@ -4,8 +4,8 @@ let initialState = {
     users: [],
     currentPage: 1,
     totalUsersCount: 0,
-    pageSize: 5,
-    isFetching: false
+    pageSize: 10,
+    isFetching: false,
 }
 
 const findUsersReducer = (state = initialState, action) => {

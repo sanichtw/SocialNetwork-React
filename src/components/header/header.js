@@ -4,7 +4,7 @@ import s from './header.module.css';
 
 
 const Header = (props) => {
-    debugger
+    
     return (
         <div className={s.header_container}>
             <div className={s.header}>
