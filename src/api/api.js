@@ -12,6 +12,14 @@ export const usersAPI = {
     async getUsers(currentPage = 1, pageSize = 10) {
         const response = await instance.get(`users?page=${currentPage}&count=${pageSize}`)
         return response.data;
+    },
+    async follow(userId) {
+        const response = await instance.post(`follow/${userId}`)
+        return response
+    },
+    async unfollow(userId) {
+        const response = await instance.delete(`follow/${userId}`)
+        return response
     }
 };
 
@@ -22,13 +30,10 @@ export const authAPI = {
     }
 };
 
-export const followAPI = {
-    async follow(id) {
-        const response = await instance.post(`follow/${id}`)
-        return response
-    },
-    async unfollow(id) {
-        const response = await instance.delete(`follow/${id}`)
+export const profileAPI = {
+    async getProfile(userId) {
+        debugger
+        const response = await instance.get(`profile/${userId}`)
         return response
     }
-};
+}

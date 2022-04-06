@@ -1,4 +1,7 @@
-import { FOLLOW, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT, SET_USERS, TOGGLE_IS_FETCHING } from "../types/types";
+import {
+    DELETE_IN_PROGRESS_BTN, TOGGLE_FOLLOW_SUCCESS, SET_CURRENT_PAGE, SET_IN_PROGRESS_BTN,
+    SET_TOTAL_USERS_COUNT, SET_USERS, TOGGLE_IS_FETCHING
+} from "../types/types";
 
 let initialState = {
     users: [],
@@ -6,11 +9,12 @@ let initialState = {
     totalUsersCount: 0,
     pageSize: 10,
     isFetching: false,
+    inProgressBtns: []
 }
 
 const findUsersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FOLLOW:
+        case TOGGLE_FOLLOW_SUCCESS:
             return {
                 ...state,
                 users: state.users.map(user => {
@@ -34,7 +38,7 @@ const findUsersReducer = (state = initialState, action) => {
                 currentPage: action.currentPage
             }
 
-        case SET_TOTAL_USERS_COUNT: 
+        case SET_TOTAL_USERS_COUNT:
             return {
                 ...state,
                 totalUsersCount: action.count
@@ -44,6 +48,16 @@ const findUsersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: !state.isFetching
+            }
+        case SET_IN_PROGRESS_BTN:
+            return {
+                ...state,
+                inProgressBtns: [...state.inProgressBtns, action.userId]
+            }
+        case DELETE_IN_PROGRESS_BTN:
+            return {
+                ...state,
+                inProgressBtns: [...state.inProgressBtns.filter(id => id !== action.userId)]
             }
         default:
             return state

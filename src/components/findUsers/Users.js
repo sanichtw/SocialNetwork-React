@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import { followAPI } from '../../api/api';
 import style from './findUsers.module.css';
 
 
@@ -32,25 +31,8 @@ const Users = (props) => {
                             <div><img src={user.photos.small} /></div>
                         </NavLink>
 
-                        <button onClick={() => {
-                            {
-                                user.followed ?
-                                    followAPI.unfollow(user.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.toggleFollow(user.id);
-                                            }
-                                        }) :
-
-                                    followAPI.follow(user.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.toggleFollow(user.id);
-                                            }
-                                        })
-                            }
-
-
+                        <button disabled={props.inProgressBtns.some(id => id === user.id)} onClick={() => {
+                            props.toggleFollow(user.id, user.followed)
                         }}>
                             {user.followed ? 'unFollow' : 'Follow'}
                         </button>
