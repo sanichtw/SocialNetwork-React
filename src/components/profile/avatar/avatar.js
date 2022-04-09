@@ -3,7 +3,7 @@ const ProfileAvatar = (props) => {
     debugger
     return (
         <div>
-            <img className={s.ava} src={props.photo ? props.photo : props.myProfilePhoto}></img>
+            <img className={s.ava} src={props.photo}></img>
         </div>
     )
 };
