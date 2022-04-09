@@ -8,7 +8,7 @@ const Description = (props) => {
     }
     return (
         <div className={s.descr}>
-            <ProfileAvatar photo={props.profile.photos.large} />
+            <ProfileAvatar photo={props.profile.photos.large} myProfilePhoto={props.myProfilePhoto}/>
             <div className={s.description_items}>
                 <div>{props.profile.aboutMe}</div>
                 <div>{props.profile.fullName}</div>

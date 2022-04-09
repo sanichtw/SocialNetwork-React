@@ -5,6 +5,8 @@ import {
 import { Component } from 'react';
 import Users from './Users';
 import Preloader from "../common/preloader/Preloader";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 
 class FindUsersContainer extends Component {
@@ -68,7 +70,10 @@ let mapStateToProps = (state) => {
 //     }
 // };
 
-export default connect(mapStateToProps, {
-    toggleFollow, setCurrentPage,
-    setInProgressBtn, deleteInProgressBtn, getUsers
-})(FindUsersContainer)
+export default compose(
+    connect(mapStateToProps, {
+        toggleFollow, setCurrentPage,
+        setInProgressBtn, deleteInProgressBtn, getUsers
+    }),
+    withAuthRedirect
+)(FindUsersContainer)

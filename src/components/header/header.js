@@ -4,7 +4,6 @@ import s from './header.module.css';
 
 
 const Header = (props) => {
-    
     return (
         <div className={s.header_container}>
             <div className={s.header}>

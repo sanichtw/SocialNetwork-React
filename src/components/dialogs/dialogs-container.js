@@ -1,24 +1,32 @@
 import { connect } from 'react-redux';
-import { sendNewMessageActionCreator, updateNewMessageActionCreator } from '../../redux/actions/actions';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { sendNewMessage, updateNewMessage } from '../../redux/actions/actions';
 import Dialogs from './dialogs';
 
 const mapStateToProps = (state) => {
     return {
-        dialogsData: state.dialogsPage
+        dialogsData: state.dialogsPage,
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        sendMessage: () => {
-            dispatch(sendNewMessageActionCreator())
-        },
-        changeText: (text) => {
-            dispatch(updateNewMessageActionCreator(text))
-        }
-    }
-};
-// Connect present-Component(Dialogs) to store and return new container-Component
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         sendNewMessage: () => {
+//             dispatch(sendNewMessage())
+//         },
+//         updateNewMessage: (text) => {
+//             dispatch(updateNewMessage(text))
+//         }
+//     }
+// };
 
-export default DialogsContainer;
+// let AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+
+export default compose(
+    connect(mapStateToProps, { sendNewMessage, updateNewMessage }),
+    withAuthRedirect
+)(Dialogs)
+    ;

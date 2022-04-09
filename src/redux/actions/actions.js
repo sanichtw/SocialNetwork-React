@@ -13,8 +13,8 @@ export const updateNewPostTextActionCreator = (text) => {
         newText: text,
     }
 };
-export const sendNewMessageActionCreator = () => ({ type: SEND_NEW_MESSAGE });
-export const updateNewMessageActionCreator = (text) => {
+export const sendNewMessage= () => ({ type: SEND_NEW_MESSAGE });
+export const updateNewMessage = (text) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
         newMessage: text,
@@ -64,11 +64,14 @@ export const toggleFollow = (userId, followStatus) => (dispatch) => {
 
 };
 
-export const setUserAuth = () => (dispatch) => {
+export const getUserAuthData = () => (dispatch) => {
     authAPI.auth()
         .then(response => {
             let { id, login, email } = response;
-            dispatch(setUserAuthData(id, login, email));
+            if (id && login && email) {
+                dispatch(setUserAuthData(id, login, email));
+
+            }
         })
 }
 

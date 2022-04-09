@@ -32,7 +32,6 @@ export const authAPI = {
 
 export const profileAPI = {
     async getProfile(userId) {
-        debugger
         const response = await instance.get(`profile/${userId}`)
         return response
     }

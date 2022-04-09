@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router';
 import DialogMessage from './dialog-messages/dialog-messages';
 import DialogPerson from './dialog-persons/dialog-persons';
 import s from './dialogs.module.css';
@@ -11,11 +12,11 @@ const Dialogs = (props) => {
         .map(name => <DialogPerson name={name.name} id={name.id} key={name.id} avatar={name.avatar} />);
 
     const onSendMessage = () => {
-        props.sendMessage()
+        props.sendNewMessage()
     };
     const onChange = (e) => {
         let text = e.target.value;
-        props.changeText(text)
+        props.updateNewMessage(text)
     };
 
     return (

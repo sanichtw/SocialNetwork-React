@@ -6,7 +6,8 @@ let initialState = {
         { id: 2, text: 'You are awesome!', likesCount: 222 },
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    profilePhoto: 'https://clipart.world/wp-content/uploads/2020/10/Light-Green-Among-Us-clipart-transparent.png'
 }
 
 const profileReducer = (state = initialState, action) => {
