@@ -17,7 +17,7 @@ const Description = (props) => {
                     <div>Old: 23</div>
                 </div>
             </div>
-            <ProfileStatus status={'Hey guys'}/>
+            <ProfileStatus profileStatus={props.profileStatus} updateProfileStatus={props.updateProfileStatus}/>
         </>
 
     )

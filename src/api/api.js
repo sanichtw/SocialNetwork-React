@@ -27,12 +27,32 @@ export const authAPI = {
     async auth() {
         const response = await instance.get(`auth/me`);
         return response.data.data;
-    }
+    },
+
+    async logIn({ email, password }) {
+        const response = await instance.post(`auth/login`, { email, password });
+        return response.data;
+    },
+
+    async logOut() {
+        const response = await instance.delete(`auth/login`);
+        return response.data;
+    },
 };
 
 export const profileAPI = {
     async getProfile(userId) {
         const response = await instance.get(`profile/${userId}`)
         return response
-    }
-}
+    },
+
+    async getProfileStatus(userId) {
+        const response = await instance.get(`profile/status/${userId}`)
+        return response
+    },
+
+    async updateProfileStatus(status) {
+        const response = await instance.put(`profile/status`, { status })
+        return response
+    },
+};

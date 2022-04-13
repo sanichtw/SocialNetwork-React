@@ -1,4 +1,4 @@
-import { SEND_NEW_MESSAGE, UPDATE_NEW_MESSAGE_TEXT } from "../types/types";
+import { SEND_NEW_MESSAGE } from "../types/types";
 
 let initialState = {
     namesData:
@@ -12,30 +12,22 @@ let initialState = {
         { id: 2, text: 'How are you?' },
         { id: 3, text: 'How your react?' },
     ],
-    newMessageText: ''
 }
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SEND_NEW_MESSAGE: {
-            if (state.newMessageText) {
+            if (action.text) {
                 let newPost = {
                     id: 5,
-                    text: state.newMessageText,
+                    text: action.text,
                 };
                 return {
                     ...state,
                     msgsData: [...state.msgsData, newPost],
-                    newMessageText: ''
                 }
             };
         };
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            return {
-                ...state,
-                newMessageText: action.newMessage
-            }
-        }
         default: return state;
     }
 }

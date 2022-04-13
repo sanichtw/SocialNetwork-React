@@ -2,18 +2,18 @@ import { authAPI, profileAPI, usersAPI } from "../../api/api";
 import {
     ADD_POST, DELETE_IN_PROGRESS_BTN, SEND_NEW_MESSAGE,
     SET_CURRENT_PAGE, SET_IN_PROGRESS_BTN, SET_PROFILE, SET_TOTAL_USERS_COUNT,
-    SET_USERS, SET_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS
+    SET_USERS, SET_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS, SET_STATUS, UPDATE_STATUS
 } from "../types/types";
 import { UPDATE_NEW_POST_TEXT, UPDATE_NEW_MESSAGE_TEXT } from "../types/types";
 
-export const AddPostActionCreator = () => ({ type: ADD_POST });
+export const AddPostActionCreator = (text) => ({ type: ADD_POST, text });
 export const updateNewPostTextActionCreator = (text) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         newText: text,
     }
 };
-export const sendNewMessage= () => ({ type: SEND_NEW_MESSAGE });
+export const sendNewMessage = (text) => ({ type: SEND_NEW_MESSAGE, text });
 export const updateNewMessage = (text) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
@@ -30,6 +30,7 @@ export const setProfile = (profile) => ({ type: SET_PROFILE, profile });
 export const setUserAuthData = (userId, login, email) => ({ type: SET_USER_AUTH, data: { userId, login, email } });
 export const setInProgressBtn = (userId) => ({ type: SET_IN_PROGRESS_BTN, userId });
 export const deleteInProgressBtn = (userId) => ({ type: DELETE_IN_PROGRESS_BTN, userId });
+export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 // Thunks:
 export const getUsers = (currentPage, pageSize) => (dispatch) => {
@@ -81,3 +82,26 @@ export const getProfile = (userId) => (dispatch) => {
             dispatch(setProfile(response.data));
         })
 };
+
+export const getProfileStatus = (userId) => (dispatch) => {
+    profileAPI.getProfileStatus(userId)
+        .then(response => {
+            dispatch(setStatus(response.data));
+
+        })
+};
+export const updateProfileStatus = (status) => (dispatch) => {
+    profileAPI.updateProfileStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatus(status));
+            }
+        })
+};
+
+
+export const logIn = ({ email, password }) => (dispatch) => {
+    authAPI.logIn(email, password)
+        .then(response => console.log(response))
+};
+

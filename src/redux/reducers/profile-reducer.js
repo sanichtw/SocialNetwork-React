@@ -1,37 +1,30 @@
-import { ADD_POST, SET_PROFILE, UPDATE_NEW_POST_TEXT } from "../types/types";
+import { ADD_POST, SET_PROFILE, SET_STATUS } from "../types/types";
 
 let initialState = {
     postsData: [
         { id: 1, text: 'Hi', likesCount: 1 },
         { id: 2, text: 'You are awesome!', likesCount: 222 },
     ],
-    newPostText: '',
     profile: null,
-    profilePhoto: 'https://clipart.world/wp-content/uploads/2020/10/Light-Green-Among-Us-clipart-transparent.png'
+    profilePhoto: 'https://clipart.world/wp-content/uploads/2020/10/Light-Green-Among-Us-clipart-transparent.png',
+    profileStatus: "",
 }
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
-            if (state.newPostText) {
+            if (action.text) {
                 let newPost = {
                     id: 5,
-                    text: state.newPostText,
+                    text: action.text,
                     likesCount: 0
                 };
                 return {
                     ...state,
                     postsData: [...state.postsData, newPost],
-                    newPostText: ''
                 }
             }
         };
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            }
-        }
 
         case SET_PROFILE: {
             return {
@@ -39,6 +32,14 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile
             }
         }
+
+        case SET_STATUS: {
+            return {
+                ...state,
+                profileStatus: action.status
+            }
+        }
+
         default: return state;
     }
 
