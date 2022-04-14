@@ -2,7 +2,7 @@ import { authAPI, profileAPI, usersAPI } from "../../api/api";
 import {
     ADD_POST, DELETE_IN_PROGRESS_BTN, SEND_NEW_MESSAGE,
     SET_CURRENT_PAGE, SET_IN_PROGRESS_BTN, SET_PROFILE, SET_TOTAL_USERS_COUNT,
-    SET_USERS, SET_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS, SET_STATUS, UPDATE_STATUS
+    SET_USERS, SET_USER_AUTH, DELETE_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS, SET_STATUS, UPDATE_STATUS
 } from "../types/types";
 import { UPDATE_NEW_POST_TEXT, UPDATE_NEW_MESSAGE_TEXT } from "../types/types";
 
@@ -27,7 +27,7 @@ export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, curren
 export const setTotalUsersCount = (count) => ({ type: SET_TOTAL_USERS_COUNT, count });
 export const toggleIsFetching = () => ({ type: TOGGLE_IS_FETCHING });
 export const setProfile = (profile) => ({ type: SET_PROFILE, profile });
-export const setUserAuthData = (userId, login, email) => ({ type: SET_USER_AUTH, data: { userId, login, email } });
+export const setUserAuthData = (userId, login, email, isAuth) => ({ type: SET_USER_AUTH, payload: { userId, login, email, isAuth } });
 export const setInProgressBtn = (userId) => ({ type: SET_IN_PROGRESS_BTN, userId });
 export const deleteInProgressBtn = (userId) => ({ type: DELETE_IN_PROGRESS_BTN, userId });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
@@ -65,24 +65,12 @@ export const toggleFollow = (userId, followStatus) => (dispatch) => {
 
 };
 
-export const getUserAuthData = () => (dispatch) => {
-    authAPI.auth()
-        .then(response => {
-            let { id, login, email } = response;
-            if (id && login && email) {
-                dispatch(setUserAuthData(id, login, email));
-
-            }
-        })
-}
-
 export const getProfile = (userId) => (dispatch) => {
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setProfile(response.data));
         })
 };
-
 export const getProfileStatus = (userId) => (dispatch) => {
     profileAPI.getProfileStatus(userId)
         .then(response => {
@@ -99,9 +87,32 @@ export const updateProfileStatus = (status) => (dispatch) => {
         })
 };
 
+export const getUserAuthData = () => (dispatch) => {
+    authAPI.auth()
+        .then(response => {
+            let { id, login, email } = response;
+            if (id && login && email) {
+                dispatch(setUserAuthData(id, login, email, true));
 
-export const logIn = ({ email, password }) => (dispatch) => {
-    authAPI.logIn(email, password)
-        .then(response => console.log(response))
+            }
+        })
 };
 
+export const logIn = (email, password, rememberMe = false) => (dispatch) => {
+    authAPI.logIn(email, password, rememberMe)
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(getUserAuthData());
+            }
+        })
+};
+
+export const logOut = () => (dispatch) => {
+    authAPI.logOut()
+        .then(response => {
+            debugger
+            if (response.resultCode === 0) {
+                dispatch(setUserAuthData(null, null, null, false));
+            }
+        })
+};

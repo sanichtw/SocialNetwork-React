@@ -12,8 +12,8 @@ let authReducer = (state = initialState, action) => {
         case SET_USER_AUTH: {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
+                isAuth: action.payload.isAuth
             }
         }
         default: return state;

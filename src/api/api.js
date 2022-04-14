@@ -8,6 +8,7 @@ const instance = axios.create({
     }
 })
 
+// Users
 export const usersAPI = {
     async getUsers(currentPage = 1, pageSize = 10) {
         const response = await instance.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -23,14 +24,15 @@ export const usersAPI = {
     }
 };
 
+// Auth
 export const authAPI = {
     async auth() {
         const response = await instance.get(`auth/me`);
         return response.data.data;
     },
 
-    async logIn({ email, password }) {
-        const response = await instance.post(`auth/login`, { email, password });
+    async logIn(email, password, rememberMe = false) {
+        const response = await instance.post(`auth/login`, { email, password, rememberMe });
         return response.data;
     },
 
@@ -40,6 +42,7 @@ export const authAPI = {
     },
 };
 
+// Profile
 export const profileAPI = {
     async getProfile(userId) {
         const response = await instance.get(`profile/${userId}`)
