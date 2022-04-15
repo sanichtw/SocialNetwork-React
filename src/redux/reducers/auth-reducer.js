@@ -13,7 +13,6 @@ let authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload,
-                isAuth: action.payload.isAuth
             }
         }
         default: return state;

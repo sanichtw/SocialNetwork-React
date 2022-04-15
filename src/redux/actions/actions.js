@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authAPI, profileAPI, usersAPI } from "../../api/api";
 import {
     ADD_POST, DELETE_IN_PROGRESS_BTN, SEND_NEW_MESSAGE,
@@ -103,6 +104,11 @@ export const logIn = (email, password, rememberMe = false) => (dispatch) => {
         .then(response => {
             if (response.resultCode === 0) {
                 dispatch(getUserAuthData());
+            } else {
+                debugger
+                let message = response.messages.length > 0 ? response.messages[0] : "Some error";
+                dispatch(stopSubmit("Login", {_error: message }))
+
             }
         })
 };
@@ -110,7 +116,6 @@ export const logIn = (email, password, rememberMe = false) => (dispatch) => {
 export const logOut = () => (dispatch) => {
     authAPI.logOut()
         .then(response => {
-            debugger
             if (response.resultCode === 0) {
                 dispatch(setUserAuthData(null, null, null, false));
             }
