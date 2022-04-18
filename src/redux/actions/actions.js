@@ -3,7 +3,7 @@ import { authAPI, profileAPI, usersAPI } from "../../api/api";
 import {
     ADD_POST, DELETE_IN_PROGRESS_BTN, SEND_NEW_MESSAGE,
     SET_CURRENT_PAGE, SET_IN_PROGRESS_BTN, SET_PROFILE, SET_TOTAL_USERS_COUNT,
-    SET_USERS, SET_USER_AUTH, DELETE_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS, SET_STATUS, UPDATE_STATUS
+    SET_USERS, SET_USER_AUTH, DELETE_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS, SET_STATUS, UPDATE_STATUS, SET_INITIALIZED
 } from "../types/types";
 import { UPDATE_NEW_POST_TEXT, UPDATE_NEW_MESSAGE_TEXT } from "../types/types";
 
@@ -32,6 +32,7 @@ export const setUserAuthData = (userId, login, email, isAuth) => ({ type: SET_US
 export const setInProgressBtn = (userId) => ({ type: SET_IN_PROGRESS_BTN, userId });
 export const deleteInProgressBtn = (userId) => ({ type: DELETE_IN_PROGRESS_BTN, userId });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
+export const initializeSuccess = () => ({ type: SET_INITIALIZED });
 
 // Thunks:
 export const getUsers = (currentPage, pageSize) => (dispatch) => {
@@ -89,12 +90,11 @@ export const updateProfileStatus = (status) => (dispatch) => {
 };
 
 export const getUserAuthData = () => (dispatch) => {
-    authAPI.auth()
+    return authAPI.auth()
         .then(response => {
             let { id, login, email } = response;
             if (id && login && email) {
-                dispatch(setUserAuthData(id, login, email, true));
-
+                dispatch(setUserAuthData(id, login, email, true))
             }
         })
 };
@@ -107,7 +107,7 @@ export const logIn = (email, password, rememberMe = false) => (dispatch) => {
             } else {
                 debugger
                 let message = response.messages.length > 0 ? response.messages[0] : "Some error";
-                dispatch(stopSubmit("Login", {_error: message }))
+                dispatch(stopSubmit("Login", { _error: message }))
 
             }
         })
@@ -121,3 +121,11 @@ export const logOut = () => (dispatch) => {
             }
         })
 };
+
+export const initializeApp = () => (dispatch) => {
+    dispatch(getUserAuthData())
+        .then(() => {
+            dispatch(initializeSuccess())
+        })
+
+}

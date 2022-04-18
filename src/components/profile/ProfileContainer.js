@@ -2,24 +2,9 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { getProfile, getProfileStatus, updateProfileStatus } from '../../redux/actions/actions';
 import Profile from './Profile';
-import { useParams } from "react-router-dom";
-import { Navigate } from 'react-router';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
-
-
-const withRouter = WrappedComponent => props => {
-    const params = useParams();
-    // etc... other react-router-dom v6 hooks
-    return (
-        <WrappedComponent
-            {...props}
-            params={params}
-        // etc...
-        />
-    );
-};
-
+import withRouter from '../../hoc/withRouter';
 
 class ProfileContainer extends Component {
     componentDidMount() {

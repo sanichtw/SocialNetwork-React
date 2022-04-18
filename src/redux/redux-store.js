@@ -6,6 +6,7 @@ import findUsersReducer from "./reducers/findUsers-reducer";
 import authReducer from "./reducers/auth-reducer";
 import ThunkMiddleWare from "redux-thunk"
 import { reducer as formReducer } from "redux-form";
+import appReducer from "./reducers/app-reducer";
 
 
 const rootReducers = combineReducers({
@@ -14,6 +15,7 @@ const rootReducers = combineReducers({
     navPage: navReducer,
     findUsersPage: findUsersReducer,
     auth: authReducer,
+    app: appReducer,
     form: formReducer
 })
 

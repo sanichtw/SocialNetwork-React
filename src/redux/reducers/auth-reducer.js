@@ -1,4 +1,4 @@
-import { SET_USER_AUTH } from "../types/types";
+import { SET_INITIALIZED, SET_USER_AUTH } from "../types/types";
 
 let initialState = {
     login: null,
