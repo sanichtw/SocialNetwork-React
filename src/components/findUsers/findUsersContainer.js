@@ -1,20 +1,21 @@
 import { connect } from "react-redux";
 import {
-    toggleFollow, setCurrentPage, setInProgressBtn, deleteInProgressBtn, getUsers
+    toggleFollow, setCurrentPage, setInProgressBtn, deleteInProgressBtn, requestUsers
 } from "../../redux/actions/actions";
 import { Component } from 'react';
 import Users from './Users';
 import Preloader from "../common/preloader/Preloader";
 import { compose } from "redux";
+import { getCurrentPage, getInProgressBtns, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/selectors/findUsers-selector";
 
 
 class FindUsersContainer extends Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
     };
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        this.props.requestUsers(pageNumber, this.props.pageSize)
     };
 
     render() {
@@ -40,12 +41,12 @@ class FindUsersContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.findUsersPage.users,
-        currentPage: state.findUsersPage.currentPage,
-        pageSize: state.findUsersPage.pageSize,
-        totalUsersCount: state.findUsersPage.totalUsersCount,
-        isFetching: state.findUsersPage.isFetching,
-        inProgressBtns: state.findUsersPage.inProgressBtns,
+        users: getUsers(state),
+        currentPage: getCurrentPage(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        isFetching: getIsFetching(state),
+        inProgressBtns: getInProgressBtns(state),
     }
 };
 
@@ -72,6 +73,6 @@ let mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps, {
         toggleFollow, setCurrentPage,
-        setInProgressBtn, deleteInProgressBtn, getUsers
+        setInProgressBtn, deleteInProgressBtn, requestUsers
     }),
 )(FindUsersContainer)

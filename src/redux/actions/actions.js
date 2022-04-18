@@ -35,7 +35,7 @@ export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const initializeSuccess = () => ({ type: SET_INITIALIZED });
 
 // Thunks:
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const requestUsers = (currentPage, pageSize) => (dispatch) => {
     dispatch(toggleIsFetching());
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
