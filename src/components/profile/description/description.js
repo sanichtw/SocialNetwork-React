@@ -1,7 +1,7 @@
 import ProfileAvatar from '../avatar/avatar';
 import s from './description.module.css';
 import Preloader from '../../common/preloader/Preloader'
-import ProfileStatus from './profile-status/profile-status';
+import ProfileStatus from './profile-status/profile-status-with-hooks';
 
 const Description = (props) => {
     if (!props.profile) {

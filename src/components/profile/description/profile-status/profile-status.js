@@ -42,5 +42,3 @@ class ProfileStatus extends Component {
         )
     }
 };
-
-export default ProfileStatus;
