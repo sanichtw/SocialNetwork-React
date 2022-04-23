@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import style from './user.module.css';
 
 export const User = ({ user, inProgressBtns, toggleFollow }) => {
-    debugger
     return <>
         <div key={user.id} className={style.user}>
             <div className={style.user_photo}>
