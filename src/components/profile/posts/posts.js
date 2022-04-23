@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { reduxForm } from 'redux-form';
 import { Field } from 'redux-form';
 import { maxLengthCreator, minLengthCreator, required } from '../../../validators/validators';
@@ -24,7 +24,7 @@ const AddNewPostReduxForm = reduxForm({
     form: "ProfileAddNewPostForm"
 })(AddNewPostForm)
 
-const Posts = (props) => {
+const Posts = React.memo(props => {
     let state = props.profileData;
 
     const onAddNewPost = (values) => {
@@ -42,6 +42,6 @@ const Posts = (props) => {
             </div>
         </div >
     )
-};
+});
 
 export default Posts;

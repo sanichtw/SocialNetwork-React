@@ -1,21 +1,27 @@
 import { connect } from "react-redux";
 import {
-    toggleFollow, setCurrentPage, setInProgressBtn, deleteInProgressBtn, requestUsers
+    toggleFollow, setCurrentPage, setInProgressBtn,
+    deleteInProgressBtn, requestUsers
 } from "../../redux/actions/actions";
 import { Component } from 'react';
 import Users from './Users';
 import Preloader from "../common/preloader/Preloader";
 import { compose } from "redux";
-import { getCurrentPage, getInProgressBtns, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/selectors/findUsers-selector";
+import {
+    getCurrentPage, getInProgressBtns, getIsFetching,
+    getPageSize, getTotalUsersCount, getUsers
+} from "../../redux/selectors/findUsers-selector";
 
 
 class FindUsersContainer extends Component {
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
+        const { currentPage, pageSize } = this.props;
+        this.props.requestUsers(currentPage, pageSize);
     };
 
     onPageChanged = (pageNumber) => {
-        this.props.requestUsers(pageNumber, this.props.pageSize)
+        const { pageSize } = this.props;
+        this.props.requestUsers(pageNumber, pageSize);
     };
 
     render() {

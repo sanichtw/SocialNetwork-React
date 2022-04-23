@@ -1,4 +1,4 @@
-import { ADD_POST, SET_PROFILE, SET_STATUS } from "../types/types";
+import { ADD_POST, DELETE_POST, SET_PROFILE, SET_STATUS } from "../types/types";
 
 let initialState = {
     postsData: [
@@ -25,6 +25,12 @@ const profileReducer = (state = initialState, action) => {
                 }
             }
         };
+        case DELETE_POST: {
+            return {
+                ...state,
+                postsData: state.postsData.filter(post => post.id != action.postId)
+            }
+        }
 
         case SET_PROFILE: {
             return {

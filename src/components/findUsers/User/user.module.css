@@ -1,0 +1,43 @@
+.users_wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 33%;
+    border-radius: 30px;
+    background-color: whitesmoke;
+}
+
+.user {
+    display: flex;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.user_photo {
+    margin: 0px 50px 0px 0px;
+}
+
+.user_photo >*:not(:last-child) {
+    margin: 0px 0px 10px 0px;
+}
+
+.user_info {
+    margin: 0px 300px 0px 0px;
+}
+
+.user_info >*:not(:last-child) {
+    margin: 0px 0px 20px 0px;
+}
+
+.user_location >*:not(:last-child) {
+    margin: 0px 0px 20px 0px;
+}
+
+button {
+    padding: 5px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.active_page {
+    font-weight: bold;
+}

@@ -1,18 +1,8 @@
 import { NavLink } from 'react-router-dom';
+import { FriendsList } from './FriendsList/FriendsList';
 import s from './nav.module.css'
 
 const Nav = (props) => {
-    let friendsData = props.friendsData.friendsData;
-
-    let friends = friendsData.map(fr => {
-        return (
-            <div key={fr.id}>
-                <img src={fr.avatar}></img>
-                <div>{fr.name}</div>
-            </div>
-        );
-    });
-
     return <div className={s.navPage}>
         <div className={s.navList}>
             <NavLink to="/profile" className={navLink => navLink.isActive ? s.active : s.item}>Profile</NavLink>
@@ -26,7 +16,7 @@ const Nav = (props) => {
         <div className={s.friendsList}>
             <h4>Friends</h4>
             <div className={s.friendsItem}>
-                {friends}
+                <FriendsList friends={props.friendsData.friendsData} />
             </div>
         </div>
     </div>
