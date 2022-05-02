@@ -17,3 +17,5 @@ export const SET_STATUS = "profile/SET_STATUS";
 export const UPDATE_STATUS = "profile/UPDATE_STATUS";
 export const DELETE_USER_AUTH = "DELETE_USER_AUTH";
 export const SET_INITIALIZED = "app/SET_INITIALIZED";
+export const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS";
+

@@ -3,21 +3,28 @@ import s from './description.module.css';
 import Preloader from '../../common/preloader/Preloader'
 import ProfileStatus from './profile-status/profile-status-with-hooks';
 
-const Description = (props) => {
-    if (!props.profile) {
+const Description = ({ profile, myProfilePhoto, profileStatus, updateProfileStatus, isOwner, setMainPhoto }) => {
+    if (!profile) {
         return <Preloader />
     }
+
+    const onUploadMainPhoto = (e) => {
+        setMainPhoto(e.target.files[0])
+    }
+
     return (
         <>
             <div className={s.descr}>
-                <ProfileAvatar photo={props.profile.photos.large} myProfilePhoto={props.myProfilePhoto} />
+                <ProfileAvatar photo={profile.photos.large} myProfilePhoto={myProfilePhoto}
+                    userId={profile.userId} />
                 <div className={s.description_items}>
-                    <div>{props.profile.aboutMe}</div>
-                    <div>{props.profile.fullName}</div>
+                    <div>{profile.aboutMe}</div>
+                    <div>{profile.fullName}</div>
                     <div>Old: 23</div>
                 </div>
             </div>
-            <ProfileStatus profileStatus={props.profileStatus} updateProfileStatus={props.updateProfileStatus}/>
+            {!isOwner && <input onChange={onUploadMainPhoto} type="file"></input>}
+            <ProfileStatus profileStatus={profileStatus} updateProfileStatus={updateProfileStatus} />
         </>
 
     )

@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import style from './user.module.css';
+import userIcon from './../../../assets/images/user-icon.png';
 
 export const User = ({ user, inProgressBtns, toggleFollow }) => {
     return <>
         <div key={user.id} className={style.user}>
             <div className={style.user_photo}>
                 <NavLink to={`/profile/${user.id}`}>
-                    <div><img src={user.photos.small} /></div>
+                    <div className={style.userAvatar}><img src={user.photos.small || userIcon} /></div>
                 </NavLink>
 
                 <button disabled={inProgressBtns.some(id => id === user.id)} onClick={() => {

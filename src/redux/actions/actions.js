@@ -4,7 +4,8 @@ import {
     ADD_POST, DELETE_IN_PROGRESS_BTN, SEND_NEW_MESSAGE, SET_CURRENT_PAGE,
     SET_IN_PROGRESS_BTN, SET_PROFILE, SET_TOTAL_USERS_COUNT, SET_USERS,
     SET_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS, SET_STATUS,
-    SET_INITIALIZED, DELETE_POST, UPDATE_NEW_POST_TEXT, UPDATE_NEW_MESSAGE_TEXT
+    SET_INITIALIZED, DELETE_POST, UPDATE_NEW_POST_TEXT, UPDATE_NEW_MESSAGE_TEXT, 
+    SAVE_PHOTO_SUCCESS
 } from "../types/types";
 
 export const AddPostActionCreator = (text) => ({ type: ADD_POST, text });
@@ -23,6 +24,7 @@ export const setInProgressBtn = (userId) => ({ type: SET_IN_PROGRESS_BTN, userId
 export const deleteInProgressBtn = (userId) => ({ type: DELETE_IN_PROGRESS_BTN, userId });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const initializeSuccess = () => ({ type: SET_INITIALIZED });
+export const savePhotoSucces = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
 
 // Thunks:
 export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
@@ -99,4 +101,11 @@ export const initializeApp = () => (dispatch) => {
         .then(() => {
             dispatch(initializeSuccess())
         })
+};
+
+export const setMainPhoto = (photos) => async (dispatch) => { 
+    const response = await profileAPI.updateMainPhoto(photos);
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSucces(response.data.data.photos));
+    }
 };

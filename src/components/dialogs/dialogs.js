@@ -19,7 +19,6 @@ const Dialogs = (props) => {
     };
 
     const AddNewMessageForm = (props) => {
-        debugger
         return (
             <form onSubmit={props.handleSubmit}>
                 <Field component={Textarea} placeholder={"Enter your message"}

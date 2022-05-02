@@ -8,7 +8,9 @@ const Profile = (props) => {
             <Description profile={props.profile} 
             myProfilePhoto={props.profilePhoto}
             profileStatus={props.profileStatus}
-            updateProfileStatus={props.updateProfileStatus} />
+            updateProfileStatus={props.updateProfileStatus} 
+            isOwner={props.owner}
+            setMainPhoto={props.setMainPhoto} />
             <PostContainer />
         </div>
     )

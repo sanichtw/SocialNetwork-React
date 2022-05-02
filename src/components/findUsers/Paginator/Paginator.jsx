@@ -2,7 +2,6 @@ import style from "./paginator.module.css";
 import { useState } from "react"
 
 export const Paginator = ({ totalUsersCount, pageSize, currentPage, onPageChanged, portionSize }) => {
-    debugger
     let pageCount = Math.ceil(totalUsersCount / pageSize),
         pages = [];
 

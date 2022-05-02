@@ -12,13 +12,13 @@ const Nav = (props) => {
             <NavLink to="/settings" className={navLink => navLink.isActive ? s.active : s.item}>Settings</NavLink>
             <NavLink to="/findUsers" className={navLink => navLink.isActive ? s.active : s.item}>Find Users</NavLink>
         </div >
-
+{/* 
         <div className={s.friendsList}>
             <h4>Friends</h4>
             <div className={s.friendsItem}>
                 <FriendsList friends={props.friendsData.friendsData} />
             </div>
-        </div>
+        </div> */}
     </div>
 }
 
