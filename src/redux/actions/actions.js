@@ -4,8 +4,8 @@ import {
     ADD_POST, DELETE_IN_PROGRESS_BTN, SEND_NEW_MESSAGE, SET_CURRENT_PAGE,
     SET_IN_PROGRESS_BTN, SET_PROFILE, SET_TOTAL_USERS_COUNT, SET_USERS,
     SET_USER_AUTH, TOGGLE_IS_FETCHING, TOGGLE_FOLLOW_SUCCESS, SET_STATUS,
-    SET_INITIALIZED, DELETE_POST, UPDATE_NEW_POST_TEXT, UPDATE_NEW_MESSAGE_TEXT, 
-    SAVE_PHOTO_SUCCESS
+    SET_INITIALIZED, DELETE_POST, UPDATE_NEW_POST_TEXT, UPDATE_NEW_MESSAGE_TEXT,
+    SAVE_PHOTO_SUCCESS, SAVE_PROFILE_INFO_SUCCESS, GET_CAPTCHA_URL_SUCCESS
 } from "../types/types";
 
 export const AddPostActionCreator = (text) => ({ type: ADD_POST, text });
@@ -24,7 +24,11 @@ export const setInProgressBtn = (userId) => ({ type: SET_IN_PROGRESS_BTN, userId
 export const deleteInProgressBtn = (userId) => ({ type: DELETE_IN_PROGRESS_BTN, userId });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const initializeSuccess = () => ({ type: SET_INITIALIZED });
-export const savePhotoSucces = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
+export const savePhotoSucces = (photos) => ({ type: SAVE_PHOTO_SUCCESS, photos });
+export const saveProfileInfoSuccess = (profile) => ({ type: SAVE_PROFILE_INFO_SUCCESS, profile });
+export const getCaptchaUrlSuccess = (captchaUrl) => ({ type: GET_CAPTCHA_URL_SUCCESS, payload: captchaUrl   });
+
+
 
 // Thunks:
 export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
@@ -79,15 +83,26 @@ export const getUserAuthData = () => async (dispatch) => {
     }
 };
 
-export const logIn = (email, password, rememberMe = false) => async (dispatch) => {
-    const response = await authAPI.logIn(email, password, rememberMe)
+export const logIn = (email, password, rememberMe = false, captcha) => async (dispatch) => {
+    const response = await authAPI.logIn(email, password, rememberMe, captcha)
     if (response.resultCode === 0) {
         dispatch(getUserAuthData());
     } else {
+        if (response.resultCode === 10) {
+            debugger
+            dispatch(getCaptchaUrl());
+        }
         let message = response.messages.length > 0 ? response.messages[0] : "Some error";
         dispatch(stopSubmit("Login", { _error: message }))
     }
 };
+
+export const getCaptchaUrl = () => async (dispatch) => {
+    const response = await authAPI.getCaptchaUrl();
+    dispatch(getCaptchaUrlSuccess(response))
+    debugger
+}
+
 
 export const logOut = () => async (dispatch) => {
     const response = await authAPI.logOut()
@@ -103,9 +118,22 @@ export const initializeApp = () => (dispatch) => {
         })
 };
 
-export const setMainPhoto = (photos) => async (dispatch) => { 
+export const setMainPhoto = (photos) => async (dispatch) => {
     const response = await profileAPI.updateMainPhoto(photos);
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSucces(response.data.data.photos));
+    }
+};
+
+export const saveProfileInfo = (profile) => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+
+    const response = await profileAPI.saveProfileInfo(profile);
+    if (response.data.resultCode === 0) {
+        dispatch(getProfile(userId));
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+        dispatch(stopSubmit("edit-profile", { _error: message }));
+        return Promise.reject(message)
     }
 };

@@ -21,3 +21,7 @@ export const Textarea = (props) => {
 export const Input = (props) => {
     return <FormControl {...props}><input {...props.input} {...props}></input></FormControl>
 };
+
+export const Checkbox = (props) => {
+    return <FormControl {...props}><input type="checkbox" {...props.input} {...props}></input></FormControl>
+};

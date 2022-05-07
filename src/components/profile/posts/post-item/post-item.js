@@ -5,7 +5,7 @@ const PostItem = (props) => {
     let posts = [...props.postsData]
         .reverse()
         .map(post => (
-            <div className={s.postItem}>
+            <div className={s.postItem} key={post.id}>
                 <div>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbvaBdtJ4GaN7m79jU-Y47NqT3Grvxd7qIZ9VKUZKyU1ynYKxoNdlQCixTRDnliBE62os&usqp=CAU"></img>
                 </div>

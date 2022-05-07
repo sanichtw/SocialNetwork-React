@@ -31,8 +31,9 @@ export const authAPI = {
         return response.data.data;
     },
 
-    async logIn(email, password, rememberMe = false) {
-        const response = await instance.post(`auth/login`, { email, password, rememberMe });
+    async logIn(email, password, rememberMe = false, captcha = null) {
+        debugger
+        const response = await instance.post(`auth/login`, { email, password, rememberMe, captcha });
         return response.data;
     },
 
@@ -40,6 +41,12 @@ export const authAPI = {
         const response = await instance.delete(`auth/login`);
         return response.data;
     },
+
+    async getCaptchaUrl() {
+        const response = await instance.get(`security/get-captcha-url`);
+        return response.data;
+    },
+
 };
 
 // Profile
@@ -69,4 +76,11 @@ export const profileAPI = {
         })
         return response
     },
+
+    async saveProfileInfo(profile) {
+        const response = await instance.put(`profile`, profile)
+        return response
+    },
+
+
 };

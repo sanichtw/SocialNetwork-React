@@ -7,7 +7,7 @@ import { logIn, logOut } from "../../redux/actions/actions"
 import { Navigate } from "react-router";
 
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
     return (
         <form onSubmit={handleSubmit}>
             <Field placeholder="Email" name="email"
@@ -18,6 +18,9 @@ const LoginForm = ({ handleSubmit, error }) => {
                 type="checkbox" /> Remember me
             <button type="submit">Submit</button>
             {error && <div>{error}</div>}
+            {captchaUrl && <img src={captchaUrl} />}
+            {captchaUrl && <Field placeholder="Enter symblols from captcha" name="captchaUrl"
+                component={Input} validate={[required]} />}
         </form>
     )
 };
@@ -27,10 +30,12 @@ const LoginReduxForm = reduxForm({
 })(LoginForm)
 
 
-const Login = ({ logIn, logOut, isAuth }) => {
+const Login = ({ logIn, logOut, isAuth, captchaUrl }) => {
     const onSubmit = (formData) => {
-        const { email, password, rememberMe } = formData;
-        logIn(email, password, rememberMe);
+        debugger
+        const { email, password, rememberMe, captchaUrl } = formData;
+        logIn(email, password, rememberMe, captchaUrl);
+
     };
 
     const onLogOut = () => {
@@ -45,13 +50,14 @@ const Login = ({ logIn, logOut, isAuth }) => {
 
     return <div>
         <h1>LOGIN</h1>
-        <LoginReduxForm onSubmit={onSubmit} logOut={onLogOut} />
+        <LoginReduxForm onSubmit={onSubmit} logOut={onLogOut} captchaUrl={captchaUrl} />
     </div>
 
 };
 const mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.url
     }
 }
 

@@ -1,4 +1,4 @@
-import { SET_USER_AUTH } from "../types/types";
+import { GET_CAPTCHA_URL_SUCCESS, SET_USER_AUTH } from "../types/types";
 
 let initialState = {
     login: null,
@@ -9,7 +9,8 @@ let initialState = {
 
 let authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_USER_AUTH: {
+        case SET_USER_AUTH:
+        case GET_CAPTCHA_URL_SUCCESS: {
             return {
                 ...state,
                 ...action.payload,
